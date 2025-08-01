@@ -1,4 +1,9 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {};
+// next.config.js
 
-export default nextConfig;
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  // ✨ A MÁGICA ACONTECE AQUI ✨
+  basePath: '/bilhete-pronto',
+};
+
+module.exports = nextConfig;
