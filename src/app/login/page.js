@@ -3,7 +3,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import apiService from '../../../lib/api'; // Importa nosso serviço de API
+import apiService from '../../lib/api'; // Importa nosso serviço de API
 import styles from './Login.module.css';
 
 const LoginPage = () => {
