@@ -1,0 +1,109 @@
+/* src/app/admin/dashboard/Dashboard.module.css */
+.dashboardPage {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.dashboardBox {
+  background-color: #212121;
+  padding: 40px;
+  border-radius: 16px;
+  max-width: 700px;
+  width: 100%;
+  border: 1px solid #333;
+}
+.title {
+  font-size: 2.2rem;
+  color: var(--primary-accent);
+  text-align: center;
+  margin-bottom: 10px;
+}
+.subtitle {
+  color: #aaa;
+  margin-bottom: 40px;
+  text-align: center;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+}
+.inputGroup {
+  margin-bottom: 20px;
+}
+.label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #ccc;
+}
+.input {
+  width: 100%;
+  padding: 14px;
+  background-color: #161616;
+  border: 1px solid #444;
+  border-radius: 8px;
+  color: var(--light-text);
+  font-size: 1rem;
+}
+.input:focus {
+  outline: none;
+  border-color: var(--primary-accent);
+}
+.saveButton {
+  background-color: var(--primary-accent);
+  color: var(--dark-text);
+  border: none;
+  border-radius: 8px;
+  padding: 16px;
+  font-size: 1.1rem;
+  font-weight: 900;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-transform: uppercase;
+}
+.saveButton:hover {
+  filter: brightness(1.1);
+}
+.saveButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+/* Estilo para quando o botão mostra "Salvo com sucesso" */
+.saveButton:not(:disabled)[value*='Salvo'] { /* Truque para estilizar baseado no texto */
+  background-color: #2ecc71;
+}
+
+/* Adicione esta classe no final do seu Dashboard.module.css */
+.currentLinkBox {
+  margin-bottom: 30px;
+  padding: 15px;
+  background-color: #161616;
+  border-radius: 8px;
+  border: 1px solid #333;
+  text-align: center;
+  word-break: break-all;
+}
+.currentLinkBox span {
+  display: block;
+  color: #888;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+}
+.currentLinkBox a {
+  color: var(--primary-accent);
+  text-decoration: underline;
+}
+
+
+/* Adicione esta classe no final do seu Dashboard.module.css */
+.loadingContainer {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888;
+  font-style: italic;
+}
