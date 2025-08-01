@@ -7,8 +7,8 @@ import apiService from '../../lib/api'; // Importa nosso serviço de API
 import styles from './Login.module.css';
 
 const LoginPage = () => {
-  const [email, setEmail] = useState('boleirospremium@gmail.com');
-  const [password, setPassword] = useState('M@rquito10');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -22,7 +22,7 @@ const LoginPage = () => {
       const response = await apiService.login(email, password);
       // Salva o token no localStorage para ser usado em outras requisições
       localStorage.setItem('authToken', response.data.token);
-      router.push('/admin/dashboard');
+      router.push('/dashboard');
     } catch (err) {
       setError(err.response?.data?.message || 'Erro ao tentar fazer login.');
       setLoading(false);
