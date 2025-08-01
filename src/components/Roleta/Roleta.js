@@ -1,18 +1,21 @@
-// src/app/components/Roleta/Roleta.js (COM IMPORTAÇÃO CORRIGIDA)
+// src/app/components/Roleta/Roleta.js (COM BUSCA DE DADOS NO CLIENTE)
 'use client';
-
-// ✨✨✨ A LINHA QUE FALTAVA ESTÁ AQUI ✨✨✨
-import { useState, useRef, useEffect } from 'react'; 
+import { useState, useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import styles from './Roleta.module.css';
+import apiService from '../../lib/api'; // Importa nosso serviço de API
 
-const Roleta = ({ ticketUrl }) => {
+const Roleta = () => {
   const [status, setStatus] = useState('idle');
   const reelRef = useRef(null);
   const resultRef = useRef(null);
+  
+  // ✨ NOVO: Estados para guardar o link final e controlar o carregamento
+  const [finalTicketUrl, setFinalTicketUrl] = useState('');
+  const [isLoadingUrl, setIsLoadingUrl] = useState(false);
+
   const itemHeight = 80;
   const viewportHeight = 240;
-
   const loadingItems = ['Analisando...', 'Validando...', 'Quase lá...'];
   const items = [
     ...loadingItems, ...loadingItems, ...loadingItems, ...loadingItems,
@@ -57,8 +60,26 @@ const Roleta = ({ ticketUrl }) => {
     }, [], "+=1");
   };
   
+  // ✨ NOVO: useEffect que busca o link QUANDO o status muda para 'finished'
   useEffect(() => {
-    if (status === 'finished' && resultRef.current) {
+    if (status === 'finished') {
+      const fetchTicket = async () => {
+        setIsLoadingUrl(true);
+        try {
+          const response = await apiService.getTicket();
+          setFinalTicketUrl(response.data.url);
+        } catch (error) {
+          console.error("Erro ao buscar o bilhete no cliente:", error);
+          // Define um link de fallback caso a API falhe neste ponto
+          setFinalTicketUrl('https://wa.me/5551999999999'); 
+        } finally {
+          setIsLoadingUrl(false);
+        }
+      };
+
+      fetchTicket();
+      
+      // Animação da caixa de resultado
       gsap.from(resultRef.current, {
         opacity: 0,
         scale: 0.8,
@@ -74,6 +95,7 @@ const Roleta = ({ ticketUrl }) => {
     <div className={styles.container}>
       <div className={styles.mainBox}>
         {status !== 'finished' ? (
+          // ... (código do estado inicial e girando, sem alterações)
           <>
             <h1 className={styles.title}>
               {status === 'spinning' ? 'Liberando seu Bilhete...' : 'Bilhete Pronto'}
@@ -101,8 +123,16 @@ const Roleta = ({ ticketUrl }) => {
           <div className={styles.resultContainer} ref={resultRef}>
             <h1 className={styles.title}>BILHETE LIBERADO!</h1>
             <p className={styles.subtitle}>Parabéns! Seu bilhete exclusivo está pronto. Toque no botão abaixo imediatamente.</p>
-            <a href={ticketUrl} target="_blank" rel="noopener noreferrer" className={styles.finalButton}>
-              ABRIR MEU BILHETE
+            
+            {/* ✨ BOTÃO FINAL DINÂMICO ✨ */}
+            <a 
+              href={isLoadingUrl ? '#' : finalTicketUrl} // Usa a URL do estado
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className={styles.finalButton}
+              style={{ opacity: isLoadingUrl ? 0.7 : 1 }} // Feedback visual de carregamento
+            >
+              {isLoadingUrl ? 'CARREGANDO BILHETE...' : 'ABRIR MEU BILHETE'}
             </a>
           </div>
         )}
