@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // Instância do Axios com a URL base da sua API
 const api = axios.create({
-  baseURL: 'https://superodds-bilhete-api.zjbwih.easypanel.host/api',
+  baseURL: 'https://superodds-bilhetesuperoddsai-api.zjbwih.easypanel.host/api',
 });
 
 // --- FUNÇÕES DE API ---

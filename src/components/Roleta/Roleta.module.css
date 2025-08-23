@@ -93,7 +93,7 @@
 }
 .spinButton:hover, .finalButton:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 30px rgba(4, 248, 174, 0.5);
+  box-shadow: #81ac0b
 }
 .spinButton:disabled {
   opacity: 0.7;
